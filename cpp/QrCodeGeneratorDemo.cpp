@@ -1,12 +1,12 @@
-/* 
+/*
  * QR Code generator demo (C++)
- * 
+ *
  * Run this command-line program with no arguments. The program computes a bunch of demonstration
  * QR Codes and prints them to the console. Also, the SVG code for one QR Code is printed as a sample.
- * 
+ *
  * Copyright (c) Project Nayuki. (MIT License)
  * https://www.nayuki.io/page/qr-code-generator-library
- * 
+ *
  * Permission is hereby granted, free of charge, to any person obtaining a copy of
  * this software and associated documentation files (the "Software"), to deal in
  * the Software without restriction, including without limitation the rights to
@@ -62,7 +62,7 @@ int main() {
 static void doBasicDemo() {
 	const char *text = "Hello, world!";              // User-supplied text
 	const QrCode::Ecc errCorLvl = QrCode::Ecc::LOW;  // Error correction level
-	
+
 	// Make and print the QR Code symbol
 	const QrCode qr = QrCode::encodeText(text, errCorLvl);
 	printQr(qr);
@@ -75,16 +75,16 @@ static void doVarietyDemo() {
 	// Numeric mode encoding (3.33 bits per digit)
 	const QrCode qr0 = QrCode::encodeText("314159265358979323846264338327950288419716939937510", QrCode::Ecc::MEDIUM);
 	printQr(qr0);
-	
+
 	// Alphanumeric mode encoding (5.5 bits per character)
 	const QrCode qr1 = QrCode::encodeText("DOLLAR-AMOUNT:$39.87 PERCENTAGE:100.00% OPERATIONS:+-*/", QrCode::Ecc::HIGH);
 	printQr(qr1);
-	
+
 	// Unicode text as UTF-8
 	const QrCode qr2 = QrCode::encodeText("\xE3\x81\x93\xE3\x82\x93\xE3\x81\xAB\xE3\x81\xA1wa\xE3\x80\x81"
 		"\xE4\xB8\x96\xE7\x95\x8C\xEF\xBC\x81\x20\xCE\xB1\xCE\xB2\xCE\xB3\xCE\xB4", QrCode::Ecc::QUARTILE);
 	printQr(qr2);
-	
+
 	// Moderately large QR Code using longer text (from Lewis Carroll's Alice in Wonderland)
 	const QrCode qr3 = QrCode::encodeText(
 		"Alice was beginning to get very tired of sitting by her sister on the bank, "
@@ -95,6 +95,7 @@ static void doVarietyDemo() {
 		"daisy-chain would be worth the trouble of getting up and picking the daisies, when suddenly "
 		"a White Rabbit with pink eyes ran close by her.", QrCode::Ecc::HIGH);
 	printQr(qr3);
+	blalalalalalalala
 }
 
 
@@ -107,12 +108,12 @@ static void doSegmentDemo() {
 		(std::string(silver0) + silver1).c_str(),
 		QrCode::Ecc::LOW);
 	printQr(qr0);
-	
+
 	const QrCode qr1 = QrCode::encodeSegments(
 		{QrSegment::makeAlphanumeric(silver0), QrSegment::makeNumeric(silver1)},
 		QrCode::Ecc::LOW);
 	printQr(qr1);
-	
+
 	// Illustration "golden"
 	const char *golden0 = "Golden ratio \xCF\x86 = 1.";
 	const char *golden1 = "6180339887498948482045868343656381177203091798057628621354486227052604628189024497072072041893911374";
@@ -121,13 +122,13 @@ static void doSegmentDemo() {
 		(std::string(golden0) + golden1 + golden2).c_str(),
 		QrCode::Ecc::LOW);
 	printQr(qr2);
-	
+
 	std::vector<uint8_t> bytes(golden0, golden0 + std::strlen(golden0));
 	const QrCode qr3 = QrCode::encodeSegments(
 		{QrSegment::makeBytes(bytes), QrSegment::makeNumeric(golden1), QrSegment::makeAlphanumeric(golden2)},
 		QrCode::Ecc::LOW);
 	printQr(qr3);
-	
+
 	// Illustration "Madoka": kanji, kana, Cyrillic, full-width Latin, Greek characters
 	const char *madoka =  // Encoded in UTF-8
 		"\xE3\x80\x8C\xE9\xAD\x94\xE6\xB3\x95\xE5"
@@ -141,7 +142,7 @@ static void doSegmentDemo() {
 		"\xBC\x9F";
 	const QrCode qr4 = QrCode::encodeText(madoka, QrCode::Ecc::LOW);
 	printQr(qr4);
-	
+
 	const std::vector<int> kanjiChars{  // Kanji mode encoding (13 bits per character)
 		0x0035, 0x1002, 0x0FC0, 0x0AED, 0x0AD7,
 		0x015C, 0x0147, 0x0129, 0x0059, 0x01BD,
@@ -166,7 +167,7 @@ static void doMaskDemo() {
 	std::vector<QrSegment> segs0 = QrSegment::makeSegments("https://www.nayuki.io/");
 	printQr(QrCode::encodeSegments(segs0, QrCode::Ecc::HIGH, QrCode::MIN_VERSION, QrCode::MAX_VERSION, -1, true));  // Automatic mask
 	printQr(QrCode::encodeSegments(segs0, QrCode::Ecc::HIGH, QrCode::MIN_VERSION, QrCode::MAX_VERSION, 3, true));  // Force mask 3
-	
+
 	// Chinese text as UTF-8
 	std::vector<QrSegment> segs1 = QrSegment::makeSegments(
 		"\xE7\xB6\xAD\xE5\x9F\xBA\xE7\x99\xBE\xE7\xA7\x91\xEF\xBC\x88\x57\x69\x6B\x69\x70"
